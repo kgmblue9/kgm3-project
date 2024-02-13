@@ -7,19 +7,15 @@
 // 모바일 버전에서도 볼 수 있는 반응형 웹이다.
 
 let inputTodo = document.getElementById("input-text");
-let clickBt1 = document.getElementById("bt1");
+let addButton = document.getElementById("add-button");
+let task = document.getElementsByClassName("task");
 let taskList = document.getElementById("task-list");
 
-console.log(taskList.textContent);
-
-inputTodo.addEventListener("keypress")
-clickBt1.addEventListener("click",addtask);
-
+// inputTodo.addEventListener("keypress")
+addButton.addEventListener("click",addtask);
 
 function addtask(){
     inputTodoValue = inputTodo.value;
     taskList.textContent = inputTodoValue;
+    inputTodo.value = null ;
 }
-
-
-console.log(inputTodo.value);
