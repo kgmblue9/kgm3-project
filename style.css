@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+    background-image: url(image/bg-image.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.container {
+    background-color: white;
+    min-height: 100vh;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.task-tabs {
+    display: flex;
+    border-bottom: 1px solid lightgrey;
+    position: relative;
+}
+
+.task-tabs div {
+    padding: 1em;
+}
+
+.task-area {
+    border: 1px solid lightgrey;
+}
+
+#under-line {
+    height: 4px;
+    width: 80px;
+    background-color: pink;
+    position: absolute;
+    left: 0px;
+    top: 52px;
+    padding: 0;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    border: 0;
+    background-color: unset;
+}
+
+input {
+    width: 80%;
+    border: none;
+}
