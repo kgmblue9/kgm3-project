@@ -6,16 +6,37 @@
 // 탭을 이용해 아이템들을 상태별로 나누어서 볼 수 있다.
 // 모바일 버전에서도 볼 수 있는 반응형 웹이다.
 
-let inputTodo = document.getElementById("input-text");
+let inputText = document.getElementById("input-text");
 let addButton = document.getElementById("add-button");
-let task = document.getElementsByClassName("task");
-let taskList = document.getElementById("task-list");
+let taskList = [];
 
-// inputTodo.addEventListener("keypress")
 addButton.addEventListener("click",addtask);
 
 function addtask(){
-    inputTodoValue = inputTodo.value;
-    taskList.textContent = inputTodoValue;
-    inputTodo.value = null ;
+    if (inputText.value == ""){
+        return;
+    } else {
+    inputTextValue = inputText.value;
+    taskList.push(inputTextValue);
+    inputText.value = "" ;
+    render();
+    }
+}
+
+function render(){
+    let resultHTML = '';
+    for (let i=0; i<taskList.length; i++){
+        resultHTML+= `<div class = "task">
+                        <div>${taskList[i]}</div>
+                        <div>
+                        <button id = "check-button">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                        <button id = "delete-button">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                        </div>
+                    </div>`
+    }
+    document.getElementById("task-board").innerHTML = resultHTML;
 }
