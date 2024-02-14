@@ -8,16 +8,50 @@
 
 let inputText = document.getElementById("input-text");
 let addButton = document.getElementById("add-button");
+let underline = document.getElementById("under-line");
+let allButton = document.getElementById("all-button");
+let notDoneButton = document.getElementById("not-done-button");
+let doneButton = document.getElementById("done-button");
 let taskList = [];
 
 addButton.addEventListener("click",addtask);
 inputText.addEventListener("keyup",enterKey);
+allButton.addEventListener("click",clickAll);
+notDoneButton.addEventListener("click",clickNotDone);
+doneButton.addEventListener("click",clickDone);
+
+console.log(underline);
+console.log(allButton);
+console.log(notDoneButton);
+console.log(doneButton);
+
+function clickAll(){
+    underline = `<div id = "under-line"></div>`;
+}
+
+function clickNotDone(){
+    underline.innerHTML = "";
+    resultHTML = `<div id = "not-done-under-line"></div>`;
+    underline.innerHTML = resultHTML;
+
+    
+    console.log(underline);
+    for (let i=0; i<taskList.length; i++){
+        if (taskList[i].isComplete == false){
+            // render();
+            console.log(taskList[i].isComplete);
+        }
+    }
+}
+
+function clickDone(){
+    underline = `<div id = "done-under-line"></div>`;
+}
 
 function enterKey(event){
     if (event.key === "Enter"){
         addtask();
     }
-
 }
 
 function addtask(){
