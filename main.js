@@ -16,20 +16,26 @@ function addtask(){
     if (inputText.value == ""){
         return;
     } else {
-    inputTextValue = inputText.value;
-    taskList.push(inputTextValue);
+    let task = {
+        id: randomIdGenerate(),
+        inputTextValue: inputText.value,
+        isComplete: false
+    }
+    taskList.push(task);
     inputText.value = "" ;
     render();
     }
 }
 
+console.log(taskList);
+
 function render(){
     let resultHTML = '';
     for (let i=0; i<taskList.length; i++){
         resultHTML+= `<div class = "task">
-                        <div>${taskList[i]}</div>
+                        <div>${taskList[i].inputTextValue}</div>
                         <div>
-                        <button id = "check-button">
+                        <button id = "check-button" onclick = "toggleComplete()">
                             <i class="fa-solid fa-check"></i>
                         </button>
                         <button id = "delete-button">
@@ -39,4 +45,12 @@ function render(){
                     </div>`
     }
     document.getElementById("task-board").innerHTML = resultHTML;
+}
+
+function toggleComplete(){
+    console.log("체크됐음")
+}
+
+function randomIdGenerate(){
+    return '_' + Math.random().toString(36).substr(2, 9);
 }
