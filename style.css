@@ -39,14 +39,42 @@ body {
 .task {
     display: flex;
     justify-content: space-between;
+    padding: 10px;    
 }
 
-button {
-    border: 0;
-    background-color: unset;
+.task-content {
+    width: 75%;
 }
 
 input {
     width: 80%;
     border: none;
+}
+
+.task-done {
+    text-decoration: line-through;
+    background-color:lightgray;
+}
+
+button {
+    border: 0;
+    background-color: unset;
+    padding: 0px 20px;
+}
+
+#add-button {
+    color:chocolate;
+    font-size: 22px;
+}
+
+#check-button {
+    color:aqua;
+}
+
+#reload-button {
+    color:gray;
+}
+
+#delete-button {
+    color: red;
 }

@@ -11,6 +11,14 @@ let addButton = document.getElementById("add-button");
 let taskList = [];
 
 addButton.addEventListener("click",addtask);
+inputText.addEventListener("keyup",enterKey);
+
+function enterKey(event){
+    if (event.key === "Enter"){
+        addtask();
+    }
+
+}
 
 function addtask(){
     if (inputText.value == ""){
@@ -32,23 +40,55 @@ console.log(taskList);
 function render(){
     let resultHTML = '';
     for (let i=0; i<taskList.length; i++){
+        if (taskList[i].isComplete == true) {
         resultHTML+= `<div class = "task">
-                        <div>${taskList[i].inputTextValue}</div>
+                        <div class = "task-done task-content">${taskList[i].inputTextValue}</div>
                         <div>
-                        <button id = "check-button" onclick = "toggleComplete()">
-                            <i class="fa-solid fa-check"></i>
+                        <button onclick = "toggleComplete('${taskList[i].id}')">
+                            <i class="fa-solid fa-rotate-right" id = "reload-button"></i>
                         </button>
-                        <button id = "delete-button">
-                            <i class="fa-regular fa-trash-can"></i>
+                        <button id = "delete-button" onclick = "deleteTask('${taskList[i].id}')">
+                            <i class="fa-regular fa-trash-can" id = "delete-button"></i>
                         </button>
                         </div>
                     </div>`
+        } else {
+        resultHTML+= `<div class = "task">
+                        <div class = "task-content">${taskList[i].inputTextValue}</div>
+                        <div>
+                        <button onclick = "toggleComplete('${taskList[i].id}')">
+                            <i class="fa-solid fa-check" id = "check-button"></i>
+                        </button>
+                        <button onclick = "deleteTask('${taskList[i].id}')">
+                            <i class="fa-regular fa-trash-can" id = "delete-button"></i>
+                        </button>
+                        </div>
+                    </div>`
+        }
     }
     document.getElementById("task-board").innerHTML = resultHTML;
 }
 
-function toggleComplete(){
-    console.log("체크됐음")
+function toggleComplete(id){
+    for (let i=0; i<taskList.length;i++){
+        if (taskList[i].id == id){
+            taskList[i].isComplete = !taskList[i].isComplete;
+            break;
+        }
+    }
+    render();
+    console.log(taskList);
+}
+
+function deleteTask(id){
+    for (let i=0; i<taskList.length;i++){
+        if (taskList[i].id == id){
+            taskList.splice(taskList[i],1);
+            break;
+        }
+    }
+    render();
+    console.log(taskList);
 }
 
 function randomIdGenerate(){
