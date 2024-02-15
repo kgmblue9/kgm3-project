@@ -8,45 +8,19 @@
 
 let inputText = document.getElementById("input-text");
 let addButton = document.getElementById("add-button");
-let underline = document.getElementById("under-line");
-let allButton = document.getElementById("all-button");
-let notDoneButton = document.getElementById("not-done-button");
-let doneButton = document.getElementById("done-button");
+let tabs = document.querySelectorAll(".task-tabs div");
 let taskList = [];
+let filterList = [];
+let mode = "all";
+
+for (let i=1; i<tabs.length; i++){
+    tabs[i].addEventListener("click",function(event){
+        filter(event);
+    });
+}
 
 addButton.addEventListener("click",addtask);
 inputText.addEventListener("keyup",enterKey);
-allButton.addEventListener("click",clickAll);
-notDoneButton.addEventListener("click",clickNotDone);
-doneButton.addEventListener("click",clickDone);
-
-console.log(underline);
-console.log(allButton);
-console.log(notDoneButton);
-console.log(doneButton);
-
-function clickAll(){
-    underline = `<div id = "under-line"></div>`;
-}
-
-function clickNotDone(){
-    underline.innerHTML = "";
-    resultHTML = `<div id = "not-done-under-line"></div>`;
-    underline.innerHTML = resultHTML;
-
-    
-    console.log(underline);
-    for (let i=0; i<taskList.length; i++){
-        if (taskList[i].isComplete == false){
-            // render();
-            console.log(taskList[i].isComplete);
-        }
-    }
-}
-
-function clickDone(){
-    underline = `<div id = "done-under-line"></div>`;
-}
 
 function enterKey(event){
     if (event.key === "Enter"){
@@ -55,12 +29,13 @@ function enterKey(event){
 }
 
 function addtask(){
-    if (inputText.value == ""){
+    let taskValue = inputText.value;
+    if (taskValue == ""){
         return;
     } else {
     let task = {
         id: randomIdGenerate(),
-        inputTextValue: inputText.value,
+        inputTextValue: taskValue,
         isComplete: false
     }
     taskList.push(task);
@@ -72,28 +47,34 @@ function addtask(){
 console.log(taskList);
 
 function render(){
-    let resultHTML = '';
-    for (let i=0; i<taskList.length; i++){
-        if (taskList[i].isComplete == true) {
+    let list = [];
+    if (mode === "all"){
+        list = taskList;
+    } else if (mode === "ongoing" || mode === "done"){
+        list = filterList;
+    } 
+    let resultHTML = "";
+    for (let i=0; i<list.length; i++){
+        if (list[i].isComplete === true) {
         resultHTML+= `<div class = "task">
-                        <div class = "task-done task-content">${taskList[i].inputTextValue}</div>
-                        <div>
-                        <button onclick = "toggleComplete('${taskList[i].id}')">
+                        <div class = "task-done task-content" id = ${list[i].id}">${list[i].inputTextValue}</div>
+                        <div class = "button-box">
+                        <button onclick = "toggleComplete('${list[i].id}')">
                             <i class="fa-solid fa-rotate-right" id = "reload-button"></i>
                         </button>
-                        <button id = "delete-button" onclick = "deleteTask('${taskList[i].id}')">
+                        <button onclick = "deleteTask('${list[i].id}')">
                             <i class="fa-regular fa-trash-can" id = "delete-button"></i>
                         </button>
                         </div>
                     </div>`
         } else {
         resultHTML+= `<div class = "task">
-                        <div class = "task-content">${taskList[i].inputTextValue}</div>
-                        <div>
-                        <button onclick = "toggleComplete('${taskList[i].id}')">
+                        <div class = "task-content" id = ${list[i].id}">${list[i].inputTextValue}</div>
+                        <div class = "button-box">
+                        <button onclick = "toggleComplete('${list[i].id}')">
                             <i class="fa-solid fa-check" id = "check-button"></i>
                         </button>
-                        <button onclick = "deleteTask('${taskList[i].id}')">
+                        <button onclick = "deleteTask('${list[i].id}')">
                             <i class="fa-regular fa-trash-can" id = "delete-button"></i>
                         </button>
                         </div>
@@ -104,25 +85,47 @@ function render(){
 }
 
 function toggleComplete(id){
-    for (let i=0; i<taskList.length;i++){
-        if (taskList[i].id == id){
+    for (let i=0; i<taskList.length; i++){
+        if (taskList[i].id === id){
             taskList[i].isComplete = !taskList[i].isComplete;
             break;
         }
     }
-    render();
-    console.log(taskList);
+    filter();
 }
 
 function deleteTask(id){
     for (let i=0; i<taskList.length;i++){
-        if (taskList[i].id == id){
-            taskList.splice(taskList[i],1);
+        if (taskList[i].id === id){
+            taskList.splice(i,1);
             break;
         }
     }
+    filter();
+}
+
+function filter(event){
+    mode = event.target.id;
+    filterList = [];
+    if (mode === "all") {
+        // render();
+
+    } else if (mode === "ongoing"){
+        for (let i=0; i<taskList.length; i++){
+            if (taskList[i].isComplete === false){
+                filterList.push(taskList[i]);
+            }
+        }
+        console.log(filterList);
+
+    } else if (mode === "done"){
+        for (let i=0; i<taskList.length; i++){
+            if (taskList[i].isComplete === true){
+                filterList.push(taskList[i]);
+            }
+        }
+    }
     render();
-    console.log(taskList);
 }
 
 function randomIdGenerate(){

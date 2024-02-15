@@ -20,6 +20,7 @@ body {
 
 .task-tabs div {
     padding: 1em;
+    cursor: pointer;
     
 }
 
@@ -33,26 +34,6 @@ body {
     background-color: pink;
     position: absolute;
     left: 0px;
-    top: 52px;
-    padding: 0;
-}
-
-#not-done-under-line {
-    height: 4px;
-    width: 80px;
-    background-color: pink;
-    position: absolute;
-    left: 50px;
-    top: 52px;
-    padding: 0;
-}
-
-#done-under-line {
-    height: 4px;
-    width: 80px;
-    background-color: pink;
-    position: absolute;
-    left: 100px;
     top: 52px;
     padding: 0;
 }
@@ -98,9 +79,4 @@ button {
 
 #delete-button {
     color: red;
-}
-
-a {
-    text-decoration: none;
-    color:black;
 }
