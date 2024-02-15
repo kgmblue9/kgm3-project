@@ -9,13 +9,18 @@
 let inputText = document.getElementById("input-text");
 let addButton = document.getElementById("add-button");
 let tabs = document.querySelectorAll(".task-tabs div");
+let underline = document.getElementById("under-line");
 let taskList = [];
 let filterList = [];
 let mode = "all";
+let list = [];
 
 for (let i=1; i<tabs.length; i++){
     tabs[i].addEventListener("click",function(event){
         filter(event);
+    underline.style.left = tabs[i].offsetLeft+"px";
+    underline.style.width = tabs[i].offsetWidth+"px";
+    underline.style.top = tabs[i].offsetTop+tabs[i].offsetHeight+"px";
     });
 }
 
@@ -47,7 +52,7 @@ function addtask(){
 console.log(taskList);
 
 function render(){
-    let list = [];
+    // let list = [];
     if (mode === "all"){
         list = taskList;
     } else if (mode === "ongoing" || mode === "done"){
@@ -91,17 +96,16 @@ function toggleComplete(id){
             break;
         }
     }
-    filter();
+    render();
 }
 
 function deleteTask(id){
-    for (let i=0; i<taskList.length;i++){
-        if (taskList[i].id === id){
-            taskList.splice(i,1);
-            break;
+    for (let i=0; i<list.length;i++){
+        if (list[i].id === id){
+            list.splice(i,1);
         }
     }
-    filter();
+    render();
 }
 
 function filter(event){
@@ -116,7 +120,7 @@ function filter(event){
                 filterList.push(taskList[i]);
             }
         }
-        console.log(filterList);
+        render();
 
     } else if (mode === "done"){
         for (let i=0; i<taskList.length; i++){

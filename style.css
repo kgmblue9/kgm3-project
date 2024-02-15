@@ -3,9 +3,12 @@ body {
     background-image: url(image/bg-image.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family:Georgia, 'Times New Roman', Times, serif
 }
 
+h1 {
+    text-align: center;
+}
 .container {
     background-color: white;
     min-height: 100vh;
@@ -30,12 +33,13 @@ body {
 
 #under-line {
     height: 4px;
-    width: 80px;
+    width: 0;
     background-color: pink;
     position: absolute;
-    left: 0px;
-    top: 52px;
+    left: 0;
+    top: 0;
     padding: 0;
+    transition: 0.5s;
 }
 
 .task {
@@ -49,8 +53,10 @@ body {
 }
 
 input {
-    width: 80%;
+    width: 75%;
+    height: 60px;
     border: none;
+    padding-left: 10px;
 }
 
 .task-done {
